@@ -1,0 +1,22 @@
+body {
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#timer-container {
+    background-color: lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+#timer-display {
+    font-size: 10em;
+}
+
+button {
+    font-size: 1.5em;
+}
