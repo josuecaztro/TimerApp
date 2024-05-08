@@ -46,7 +46,7 @@ function startCounter (){
     }
    }, 1000);
 
-   timerContainer.style.background = "rgb(85, 158, 85)";
+   timerContainer.style.background = "rgb(0, 102, 0)";
    timerDisplay.style.color = "white";
 
 }
