@@ -16,7 +16,11 @@ let displayMinute = "0" + minute;
 function startCounter (){
    interval = setInterval(function(){
     if (i < 10){
-    timerDisplay.textContent = "0" + minute + ":" + "0" + i++;
+        /*it took me forever to figure out the bug on why
+        it was skipping the number 9. long story short: i had 
+        to turn the (i++) into a (++i) because (i) was getting used
+        in the expression before it could be displayed. */
+    timerDisplay.textContent = "0" + minute + ":" + "0" + ++i;
     }
     if (i >= 10 && i < 60){
         timerDisplay.textContent = "0" + minute + ":" + i++;
@@ -25,7 +29,7 @@ function startCounter (){
         i = 0;
         minute++;
     }
-   }, 100);
+   }, 1000);
 
    timerContainer.style.background = "rgb(85, 158, 85)";
    timerDisplay.style.color = "white";

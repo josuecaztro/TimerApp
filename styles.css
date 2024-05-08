@@ -10,11 +10,12 @@ body {
     background-color: rgb(168, 168, 168);
     border-radius: 5px;
     width: 100%;
+    min-height: 100vh; 
     text-align: center;
 }
 
 #timer-display {
-    font-size: 10em;
+    font-size: 20em;
     color: rgb(43, 43, 43);
 }
 
