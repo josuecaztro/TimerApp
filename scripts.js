@@ -8,40 +8,43 @@ let resetButton = document.querySelector("#reset-button");
 
 //DECLARE ALL IMPORTANT VARIABLES
 let interval;
-let i = 0;
+let second = 0;
 let minute = 0;
 let hour = 0;
-let displayMinute = "0" + minute;
+
+//this function makes the Timer display numbers PROPERLY (keep this)
+function fixNumberDisplay (number){
+    if (number < 10){
+        let newNumber = "0" + number;
+        return newNumber;
+    } else {
+    return number;
+    };
+}
 
 //THIS IS THE MOST IMPORTANT FUNCTION WITH THE MOST LOGIC
 function startCounter (){
    interval = setInterval(function(){
-    if (i < 10){
+    if (second < 60){
         /*it took me forever to figure out the bug on why
         it was skipping the number 9. long story short: i had 
         to turn the (i++) into a (++i) because (i) was getting used
         in the expression before it could be displayed. */
-    timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(++i);
+    timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(++second);
     }
-    if ((i >= 10 && i < 60) && minute <= 9){
-        timerDisplay.textContent = "00:0" + minute + ":" + ++i;
-    } else if ((i >= 10 && i < 60) && minute >= 10){
-        timerDisplay.textContent = "00:" + minute + ":" + ++i;
-    }
-
     //this adds a minute every 60 seconds
-    if (i >= 59){
-        i = 0;
+    if (second === 60){
         ++minute;
+        timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(0);
+        second = 0;
     }
     //this adds an hour every 60 minutes
-    if (minute >= 59){
-        minute = 0;
+    if (minute === 60){
         ++hour;
+        timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(0) + ":" + fixNumberDisplay(0);
+        minute = 0;
     }
-
-
-   }, 10);
+   }, 1000);
 
    timerContainer.style.background = "rgb(85, 158, 85)";
    timerDisplay.style.color = "white";
@@ -62,22 +65,3 @@ stopButton.addEventListener("click", stopCounter);
 resetButton.addEventListener("click", resetCounter);
 
 
-
-
-
-
-
-
-
-//all theory down below
-
-
-
-function fixNumberDisplay (number){
-    if (number < 10){
-        let newNumber = "0" + number;
-        return newNumber;
-    } else {
-    return number;
-    };
-}
