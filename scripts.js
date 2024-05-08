@@ -10,6 +10,7 @@ let resetButton = document.querySelector("#reset-button");
 let interval;
 let i = 0;
 let minute = 0;
+let hour = 0;
 let displayMinute = "0" + minute;
 
 //THIS IS THE MOST IMPORTANT FUNCTION WITH THE MOST LOGIC
@@ -20,16 +21,27 @@ function startCounter (){
         it was skipping the number 9. long story short: i had 
         to turn the (i++) into a (++i) because (i) was getting used
         in the expression before it could be displayed. */
-    timerDisplay.textContent = "0" + minute + ":" + "0" + ++i;
+    timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(++i);
     }
-    if (i >= 10 && i < 60){
-        timerDisplay.textContent = "0" + minute + ":" + i++;
+    if ((i >= 10 && i < 60) && minute <= 9){
+        timerDisplay.textContent = "00:0" + minute + ":" + ++i;
+    } else if ((i >= 10 && i < 60) && minute >= 10){
+        timerDisplay.textContent = "00:" + minute + ":" + ++i;
     }
-    if (i >= 60){
+
+    //this adds a minute every 60 seconds
+    if (i >= 59){
         i = 0;
-        minute++;
+        ++minute;
     }
-   }, 1000);
+    //this adds an hour every 60 minutes
+    if (minute >= 59){
+        minute = 0;
+        ++hour;
+    }
+
+
+   }, 10);
 
    timerContainer.style.background = "rgb(85, 158, 85)";
    timerDisplay.style.color = "white";
@@ -51,3 +63,21 @@ resetButton.addEventListener("click", resetCounter);
 
 
 
+
+
+
+
+
+
+//all theory down below
+
+
+
+function fixNumberDisplay (number){
+    if (number < 10){
+        let newNumber = "0" + number;
+        return newNumber;
+    } else {
+    return number;
+    };
+}
