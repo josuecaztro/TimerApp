@@ -1,16 +1,23 @@
 //ALL DOM ELEMENTS
 let timerDisplay = document.querySelector("#timer-display");
 let timerContainer = document.querySelector("#timer-container");
+let realTime = document.querySelector("#real-time-container");
 let startButton = document.querySelector("#start-button");
 let stopButton = document.querySelector("#stop-button");
 let resetButton = document.querySelector("#reset-button");
+let addFifteenButton = document.querySelector("#add-15");
+let subtractFifteenButton = document.querySelector("#subtract-15");
+
 
 
 //DECLARE ALL IMPORTANT VARIABLES
 let interval;
-let second = 0;
+let second = 58;
 let minute = 0;
 let hour = 0;
+let secondInterval;
+
+
 
 //this function makes the Timer display numbers PROPERLY (keep this)
 function fixNumberDisplay (number){
@@ -26,7 +33,6 @@ function fixNumberDisplay (number){
 //THIS IS THE MOST IMPORTANT FUNCTION WITH THE MOST LOGIC
 function startCounter (){
    interval = setInterval(function(){
-
 
       //Conditionals for TIMER COLOR ALERTS 
       if (hour === 1 && minute >= 30 && minute < 45){
@@ -49,20 +55,22 @@ function startCounter (){
         to turn the (i++) into a (++i) because (i) was getting used
         in the expression before it could be displayed. */
         ++second;
-    timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute);
+    timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(second);
     }
     //this adds a minute every 60 seconds
     if (second === 60){
         ++minute;
-        timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute);
         second = 0;
+        timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(second);;
     }
     //this adds an hour every 60 minutes
-    if (minute === 60){
+    if (minute >= 60){
         ++hour;
-        timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(0);
         minute = 0;
+        timerDisplay.textContent = fixNumberDisplay(hour) + ":" + fixNumberDisplay(minute) + ":" + fixNumberDisplay(second);;
     }
+
+    
    }, 1000);
    
 
@@ -89,8 +97,61 @@ function stopCounter (){
 function resetCounter (){
     location.reload();
 }
+function addFifteen(){
+    minute += 15;
+}
+function subtractFifteen(){
+    minute -= 15;
+}
+
+
+
 startButton.addEventListener("click", startCounter);
 stopButton.addEventListener("click", stopCounter);
 resetButton.addEventListener("click", resetCounter);
+addFifteenButton.addEventListener("click", addFifteen);
+subtractFifteenButton.addEventListener("click", subtractFifteen);
+
+
+
+
+/* EVERYTHING HERE IS FOR THE 2.0 UPDATE
+
+- Add seconds again to main timertimer✅
+- Show what GreenYellowandRed represent on the bottom✅
+- Add or Remove 15 minutes at any point✅
+- Display Real Time above timer 
+
+*/
+
+/*NOTE: i got a weird bug where the minutes above 60 kept going,
+for example it would say 71 minutes instead of 1:11:00 but I am 80% sure
+I fixed it just keep an eye out for it. I literally don't know where it came from.
+Probably because i really need to clean up all this code in general so 
+next time I wanna add features everything's easier to do.
+*/
+
+const dateObj = new Date();
+
+
+function displayClock (){
+let hours = dateObj.getHours();
+let minutes = dateObj.getMinutes();
+let seconds = dateObj.getSeconds();
+let clockHour = hours < 10 ? "0" + hours : hours;
+let clockMinute = minutes < 10 ? "0" + minutes : minutes;
+let ampm = clockHour < 12 ? "AM" : "PM";
+let clockTime = clockHour > 12 ? clockHour - 12 : clockHour;
+let displayTime = clockTime + ":" + clockMinute + " " + seconds + ampm;
+    secondInterval = setInterval(function(){
+    realTime.textContent = displayTime;
+}, 1000)};
+
+displayClock();
+
+
+
+
+
 
 
