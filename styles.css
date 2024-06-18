@@ -65,7 +65,9 @@ button:active {
 
 #real-time-container {
     color: white;
-    padding-top: 30px;
+    font-size: 75px;
+    border: 5px solid rgb(167, 189, 255);
+    padding: 25px;
 }
 
 #assistance-display h2 {

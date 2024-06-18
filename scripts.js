@@ -15,7 +15,6 @@ let interval;
 let second = 58;
 let minute = 0;
 let hour = 0;
-let secondInterval;
 
 
 
@@ -120,7 +119,7 @@ subtractFifteenButton.addEventListener("click", subtractFifteen);
 - Add seconds again to main timertimer✅
 - Show what GreenYellowandRed represent on the bottom✅
 - Add or Remove 15 minutes at any point✅
-- Display Real Time above timer 
+- Display Real Time above timertimer✅ 
 
 */
 
@@ -131,10 +130,14 @@ Probably because i really need to clean up all this code in general so
 next time I wanna add features everything's easier to do.
 */
 
-const dateObj = new Date();
 
 
+
+/*this whole function right here was pretty complex for me.
+I figured it out and I used stack overflow but even I think this is hard 
+right here. but I did it. */
 function displayClock (){
+const dateObj = new Date();
 let hours = dateObj.getHours();
 let minutes = dateObj.getMinutes();
 let seconds = dateObj.getSeconds();
@@ -142,12 +145,19 @@ let clockHour = hours < 10 ? "0" + hours : hours;
 let clockMinute = minutes < 10 ? "0" + minutes : minutes;
 let ampm = clockHour < 12 ? "AM" : "PM";
 let clockTime = clockHour > 12 ? clockHour - 12 : clockHour;
-let displayTime = clockTime + ":" + clockMinute + " " + seconds + ampm;
-    secondInterval = setInterval(function(){
-    realTime.textContent = displayTime;
-}, 1000)};
+let displayTime = clockTime + ":" + clockMinute + " " + ampm;
+realTime.textContent = displayTime;
+};
 
-displayClock();
+/*looks like i can just call setInterval i dont necessarilly gotta 
+put it in a variable*/
+setInterval(displayClock, 1000);
+
+
+
+
+
+
 
 
 
